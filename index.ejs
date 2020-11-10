@@ -1,0 +1,13 @@
+<h1>Chat program!</h1>
+
+<form method="POST">
+  <input type="text" name="sender" value="sender">
+  <input type="text" name="message" value="message">
+  <input type="submit" value="Send!">
+</form>
+
+<ul>
+  <% messages.forEach((message) => { %>
+    <li><%= message.sender %>: <%= message.message %></li>
+  <% }); %>
+</ul>
