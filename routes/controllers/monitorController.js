@@ -25,7 +25,7 @@ const postMorningReport = async ({request, response}) => {
     params.get("slp_dur"),
     params.get("slp_qlty"),
     params.get("mood"),
-    "ropsutius@gmail.com"
+    "roope@gmail.com"
   );
   response.body = {status: 200};
 };

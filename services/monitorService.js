@@ -1,68 +1,43 @@
 import {executeQuery} from "../database/database.js";
 
 const addMorning = async (date, slp_dur, slp_qlty, mood, email) => {
-  if (date) {
+  const res = await executeQuery(
+    `SELECT EXISTS(SELECT 1 FROM morning_reports
+    WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = '${email}')`
+  );
+  if (res.rowsOfObjects()[0].exists) {
     await executeQuery(
-      `INSERT INTO morning_reports (date, slp_dur, slp_qlty, mood, email)
-      VALUES ('${date}', ${slp_dur}, ${slp_qlty}, ${mood}, '${email}')`
-    );
-  } else {
-    await executeQuery(
-      `INSERT INTO morning_reports (date, slp_dur, slp_qlty, mood, email)
-      VALUES (CURRENT_DATE, ${slp_dur}, ${slp_qlty}, ${mood}, '${email}')`
+      `DELETE FROM morning_reports
+      WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = '${email}'`
     );
   }
+  await executeQuery(
+    `INSERT INTO morning_reports (date, slp_dur, slp_qlty, mood, email)
+      VALUES ('${!date ? "CURRENT_DATE" : date}',
+       ${slp_dur}, ${slp_qlty}, ${mood}, '${email}')`
+  );
 };
 
-const addEvening = async (
-  date,
-  time_sport,
-  time_study,
-  eating,
-  mood,
-  email
-) => {
-  if (date) {
+const addEvening = async (date, sprt_t, std_t, eating, mood, email) => {
+  const res = await executeQuery(
+    `SELECT EXISTS(SELECT 1 FROM evening_reports
+    WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = '${email}')`
+  );
+  if (res.rowsOfObjects()[0].exists) {
     await executeQuery(
-      `INSERT INTO evening_reports (date, time_sport, time_study, eating, mood, email)
-      VALUES
-      ('${date}', ${time_sport}, ${time_study}, ${eating}, '${mood}', '${email}')`
-    );
-  } else {
-    await executeQuery(
-      `INSERT INTO evening_reports (date, time_sport, time_study, eating, mood, email)
-      VALUES
-      (CURRENT_DATE, ${time_sport}, ${time_study}, ${eating}, '${mood}', '${email}')`
+      `DELETE FROM evening_reports
+      WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = '${email}'`
     );
   }
-};
-
-const getMorningResults = async email => {
-  const res = await executeQuery(
-    `SELECT * FROM morning_reports WHERE email = '${email}'`
+  await executeQuery(
+    `INSERT INTO evening_reports (date, time_sport, time_study, eating, mood, email)
+      VALUES ('${
+        !date ? "CURRENT_DATE" : date
+      }', ${sprt_t}, ${std_t}, ${eating}, '${mood}', '${email}')`
   );
-  if (res && res.rowCount > 0) {
-    return res.rowsOfObjects();
-  } else return [];
 };
 
-const getEveningResults = async email => {
-  const res = await executeQuery(
-    `SELECT * FROM evening_reports WHERE email = '${email}'`
-  );
-  if (res && res.rowCount > 0) {
-    return res.rowsOfObjects();
-  } else return [];
-};
-
-const getAllResults = async email => {
-  return {
-    morning: await getMorningResults(email),
-    evening: await getEveningResults(email)
-  };
-};
-
-const getAvgMorningResults = async (email, weeks) => {
+const avgMorningByWeek = async (email, weeks) => {
   const res = await executeQuery(
     `SELECT trunc(AVG(slp_dur), 1) as slp_dur, trunc(AVG(slp_qlty), 1) as slp_qlty
     FROM morning_reports
@@ -73,7 +48,7 @@ const getAvgMorningResults = async (email, weeks) => {
   } else return {};
 };
 
-const getAvgEveningResults = async (email, weeks) => {
+const avgEveningByWeek = async (email, weeks) => {
   const res = await executeQuery(
     `SELECT trunc(AVG(time_sport), 1) as time_sport,
     trunc(AVG(time_study), 1) as time_study,
@@ -81,9 +56,7 @@ const getAvgEveningResults = async (email, weeks) => {
     FROM evening_reports
     WHERE date > now() - interval '${weeks} week' AND email = '${email}'`
   );
-  console.log(res);
   if (res && res.rowCount > 0) {
-    console.log(res.rowsOfObjects()[0]);
     return res.rowsOfObjects()[0];
   } else return {};
 };
@@ -91,25 +64,17 @@ const getAvgEveningResults = async (email, weeks) => {
 const getAvgWeekResults = async email => {
   return Object.assign(
     {},
-    await getAvgMorningResults(email, 1),
-    await getAvgEveningResults(email, 1)
+    await avgMorningByWeek(email, 1),
+    await avgEveningByWeek(email, 1)
   );
 };
 
 const getAvgMonthResults = async email => {
   return Object.assign(
     {},
-    await getAvgMorningResults(email, 4),
-    await getAvgEveningResults(email, 4)
+    await avgMorningByWeek(email, 4),
+    await avgEveningByWeek(email, 4)
   );
 };
 
-export {
-  addMorning,
-  addEvening,
-  getMorningResults,
-  getEveningResults,
-  getAllResults,
-  getAvgWeekResults,
-  getAvgMonthResults
-};
+export {addMorning, addEvening, getAvgWeekResults, getAvgMonthResults};

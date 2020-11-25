@@ -6,6 +6,7 @@ const router = new Router();
 
 router.get("/", monitorController.getLanding);
 router.get("/behavior/reporting", monitorController.getReporting);
+router.get("/behavior/summary", monitorController.getLanding);
 router.post("/behavior/reporting/morning", monitorController.postMorningReport);
 router.post("/behavior/reporting/evening", monitorController.postEveningReport);
 

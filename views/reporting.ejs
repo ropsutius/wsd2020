@@ -1,58 +1,94 @@
+<h1>Report morning behavior</h1>
 <form action="/behavior/reporting/morning" method="POST">
-  <input type="date" name="date">
-  <input type="number" min="0" max="24" name="slp_dur">
+  <div>
+    <label>Date (Default is today): </label>
+    <input type="date" name="date">
+  </div>
 
-  <label for="slp1">1</label>
-  <input type="radio" id="slp1" value="1" name="slp_qlty">
-  <label for="slp2">2</label>
-  <input type="radio" id="slp2" value="2" name="slp_qlty">
-  <label for="slp3">3</label>
-  <input type="radio" id="slp3" value="3" name="slp_qlty">
-  <label for="slp4">4</label>
-  <input type="radio" id="slp4" value="4" name="slp_qlty">
-  <label for="slp5">5</label>
-  <input type="radio" id="slp5" value="5" name="slp_qlty">
+  <div>
+    <label>Time slept: </label>
+    <input type="number" min="0" max="24" name="slp_dur">
+  </div>
 
-  <label for="mood1">1</label>
-  <input type="radio" id="mood1" value="1" name="mood">
-  <label for="mood2">2</label>
-  <input type="radio" id="mood2" value="2" name="mood">
-  <label for="mood3">3</label>
-  <input type="radio" id="mood3" value="3" name="mood">
-  <label for="mood4">4</label>
-  <input type="radio" id="mood4" value="4" name="mood">
-  <label for="mood5">5</label>
-  <input type="radio" id="mood5" value="5" name="mood">
+  <div>
+    <label>Quality of sleep on a scale of 1-5: </label><br>
+    <input type="radio" id="slp1" value="1" name="slp_qlty">
+    <label for="slp1">1</label>
+    <input type="radio" id="slp2" value="2" name="slp_qlty">
+    <label for="slp2">2</label>
+    <input type="radio" id="slp3" value="3" name="slp_qlty">
+    <label for="slp3">3</label>
+    <input type="radio" id="slp4" value="4" name="slp_qlty">
+    <label for="slp4">4</label>
+    <input type="radio" id="slp5" value="5" name="slp_qlty">
+    <label for="slp5">5</label>
+  </div>
 
-  <input type="submit" value="Submit morning behavior">
+  <div>
+    <label>General mood on a scale of 1-5: </label><br>
+    <input type="radio" id="mood1" value="1" name="mood">
+    <label for="mood1">1</label>
+    <input type="radio" id="mood2" value="2" name="mood">
+    <label for="mood2">2</label>
+    <input type="radio" id="mood3" value="3" name="mood">
+    <label for="mood3">3</label>
+    <input type="radio" id="mood4" value="4" name="mood">
+    <label for="mood4">4</label>
+    <input type="radio" id="mood5" value="5" name="mood">
+    <label for="mood5">5</label>
+  </div>
+
+  <div>
+    <input type="submit" value="Submit morning behavior">
+  </div>
 </form>
 
+<h1>Report evening behavior</h1>
 <form action="/behavior/reporting/evening" method="POST">
-  <input type="date" name="date">
-  <input type="number" min="0" max="24" name="time_sport">
-  <input type="number" min="0" max="24" name="time_study">
+  <div>
+    <label>Date (Default is today): </label>
+    <input type="date" name="date">
+  </div>
 
-  <label for="eat1">1</label>
-  <input type="radio" id="eat1" value="1" name="eating">
-  <label for="2">2</label>
-  <input type="radio" id="eat2" value="2" name="eating">
-  <label for="eat3">3</label>
-  <input type="radio" id="eat3" value="3" name="eating">
-  <label for="eat4">4</label>
-  <input type="radio" id="eat4" value="4" name="eating">
-  <label for="eat5">5</label>
-  <input type="radio" id="eat5" value="5" name="eating">
+  <div>
+    <label>Time spent on sports and exercise: </label>
+    <input type="number" min="0" max="24" name="time_sport">
+  </div>
 
-  <label for="mood1">1</label>
-  <input type="radio" id="mood1" value="1" name="mood">
-  <label for="mood2">2</label>
-  <input type="radio" id="mood2" value="2" name="mood">
-  <label for="mood3">3</label>
-  <input type="radio" id="mood3" value="3" name="mood">
-  <label for="mood4">4</label>
-  <input type="radio" id="mood4" value="4" name="mood">
-  <label for="mood5">5</label>
-  <input type="radio" id="mood5" value="5" name="mood">
+  <div>
+    <label>Time spent studying: </label>
+    <input type="number" min="0" max="24" name="time_study">
+  </div>
 
-  <input type="submit" value="Submit evening behavior">
+  <div>
+    <label>Regularity and quality of eating on a scale of 1-5: </label><br>
+    <input type="radio" id="eat1" value="1" name="eating">
+    <label for="eat1">1</label>
+    <input type="radio" id="eat2" value="2" name="eating">
+    <label for="2">2</label>
+    <input type="radio" id="eat3" value="3" name="eating">
+    <label for="eat3">3</label>
+    <input type="radio" id="eat4" value="4" name="eating">
+    <label for="eat4">4</label>
+    <input type="radio" id="eat5" value="5" name="eating">
+    <label for="eat5">5</label>
+  </div>
+
+  <div>
+    <label>General mood on a scale of 1-5: </label><br>
+    <input type="radio" id="mood1" value="1" name="mood">
+    <label for="mood1">1</label>
+    <input type="radio" id="mood2" value="2" name="mood">
+    <label for="mood2">2</label>
+    <input type="radio" id="mood3" value="3" name="mood">
+    <label for="mood3">3</label>
+    <input type="radio" id="mood4" value="4" name="mood">
+    <label for="mood4">4</label>
+    <input type="radio" id="mood5" value="5" name="mood">
+    <label for="mood5">5</label>
+  </div>
+
+  <div>
+    <input type="submit" value="Submit evening behavior">
+  </div>
 </form>
