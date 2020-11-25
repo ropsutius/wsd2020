@@ -26,3 +26,33 @@
 
   <input type="submit" value="Submit morning behavior">
 </form>
+
+<form action="/behavior/reporting/evening" method="POST">
+  <input type="date" name="date">
+  <input type="number" min="0" max="24" name="time_sport">
+  <input type="number" min="0" max="24" name="time_study">
+
+  <label for="eat1">1</label>
+  <input type="radio" id="eat1" value="1" name="eating">
+  <label for="2">2</label>
+  <input type="radio" id="eat2" value="2" name="eating">
+  <label for="eat3">3</label>
+  <input type="radio" id="eat3" value="3" name="eating">
+  <label for="eat4">4</label>
+  <input type="radio" id="eat4" value="4" name="eating">
+  <label for="eat5">5</label>
+  <input type="radio" id="eat5" value="5" name="eating">
+
+  <label for="mood1">1</label>
+  <input type="radio" id="mood1" value="1" name="mood">
+  <label for="mood2">2</label>
+  <input type="radio" id="mood2" value="2" name="mood">
+  <label for="mood3">3</label>
+  <input type="radio" id="mood3" value="3" name="mood">
+  <label for="mood4">4</label>
+  <input type="radio" id="mood4" value="4" name="mood">
+  <label for="mood5">5</label>
+  <input type="radio" id="mood5" value="5" name="mood">
+
+  <input type="submit" value="Submit evening behavior">
+</form>
