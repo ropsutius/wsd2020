@@ -1,6 +1,9 @@
-<h1>News</h1>
+<h1>Monitoring results</h1>
 <ul>
-  <% news.forEach(item => { %>
-    <li><a href="/news/<%= item.id %>"><%= item.title %></a></li>
+  <% results.forEach(result => { %>
+    <li>
+      <%= result.date.toLocaleDateString() %>, <%= result.slp_dur %>, <%= result.slp_qlty %>, <%= result.mood %>,
+      <%= result.email %>
+    </li>
   <% }); %>
 </ul>

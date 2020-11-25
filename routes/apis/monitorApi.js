@@ -1,4 +1,4 @@
-import * as newsService from "../../services/newsService.js";
+import * as newsService from "../../services/monitorService.js";
 
 const getNews = async ({response}) => {
   response.body = await newsService.getNews();

@@ -1,14 +1,11 @@
 import {Router} from "../deps.js";
-import * as newsApi from "./apis/newsApi.js";
-import * as newsController from "./controllers/newsController.js";
+import * as monitorApi from "./apis/monitorApi.js";
+import * as monitorController from "./controllers/monitorController.js";
 
 const router = new Router();
 
-router.get("/api/news", newsApi.getNews);
-router.post("/api/news", newsApi.addNews);
-router.get("/api/news/:id", newsApi.getNewsById);
-router.delete("/api/news/:id", newsApi.deleteNewsById);
-router.get("/", newsController.getNews);
-router.get("/news/:id", newsController.getNewsById);
+router.get("/", monitorController.getLanding);
+router.get("/behavior/reporting", monitorController.getReporting);
+router.post("/behavior/reporting/morning", monitorController.postMorningReport);
 
 export {router};
