@@ -1,9 +1,11 @@
 <h1>Monitoring results</h1>
-<ul>
-  <% results.forEach(result => { %>
-    <li>
-      <%= result.date.toLocaleDateString() %>, <%= result.slp_dur %>, <%= result.slp_qlty %>, <%= result.mood %>,
-      <%= result.email %>
-    </li>
-  <% }); %>
-</ul>
+
+<h2>Average results for last week:</h2>
+<p>Sleep duration: <%= week.slp_dur %></p>
+<p>Quality of sleep: <%= week.slp_qlty %></p>
+<p>General mood: <%= week.mood %></p>
+
+<h2>Average results for the last month:</h2>
+<p>Sleep duration: <%= month.slp_dur %></p>
+<p>Quality of sleep: <%= month.slp_qlty %></p>
+<p>General mood: <%= month.mood %></p>

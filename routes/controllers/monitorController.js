@@ -2,7 +2,8 @@ import * as monitorService from "../../services/monitorService.js";
 
 const getLanding = async ({render}) => {
   render("index.ejs", {
-    results: await monitorService.getMorningResults("ropsutius@gmail.com")
+    week: await monitorService.getAvgWeekMorningResults("ropsutius@gmail.com"),
+    month: await monitorService.getAvgMonthMorningResults("ropsutius@gmail.com")
   });
 };
 
