@@ -1,0 +1,8 @@
+SELECT ROUND(AVG((SELECT AVG(c) FROM (VALUES(m.mood), (e.mood)) T (c))), 1) mood
+FROM
+  (SELECT * FROM evening_reports WHERE email = 'ropsutius@gmail.com'
+  AND date = '11-25-2020') e
+FULL OUTER JOIN
+  (SELECT * FROM morning_reports WHERE email = 'ropsutius@gmail.com'
+  AND date = '11-25-2020') m
+ON e.date = m.date;

@@ -1,15 +1,21 @@
-<h1>Monitoring results</h1>
+<h1>Self monitoring service</h1>
+<p>
+  This service tracks your mental health by simple
+  queries performed every morning and evening.
+ </p>
 
-<h2>Average results for last week:</h2>
-<p>Sleep duration: <%= week.slp_dur %></p>
-<p>Quality of sleep: <%= week.slp_qlty %></p>
-<p>Time spent on sports: <%= week.time_sport %></p>
-<p>Time spent studying: <%= week.time_sport %></p>
-<p>Regularity and quality of eating: <%= week.eating %></p>
+<% if (today.mood) { %>
+  <h2>Average mood for today: <%= today.mood %></h2>
+<% } %>
 
-<h2>Average results for the last month:</h2>
-<p>Sleep duration: <%= month.slp_dur %></p>
-<p>Quality of sleep: <%= month.slp_qlty %></p>
-<p>Time spent on sports: <%= month.time_sport %></p>
-<p>Time spent studying: <%= month.time_study %></p>
-<p>Regularity and quality of eating: <%= month.eating %></p>
+<% if (yesterday.mood) { %>
+<h2>Average mood for yesterday: <%= yesterday.mood %></h2>
+<% } %>
+
+<% if (today.mood && yesterday.mood) { %>
+  <% if (today.mood > yesterday.mood) { %>
+    <h3>Things are looking bright today!</h3>
+  <% } else if (today.mood < yesterday.mood) { %>
+    <h3>Things are looking gloomy today.</h3>
+  <% } %>
+<% } %>

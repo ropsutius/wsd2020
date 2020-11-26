@@ -37,24 +37,35 @@ const addEvening = async (date, sprt_t, std_t, eating, mood, email) => {
   );
 };
 
-const avgMorningByWeek = async (email, weeks) => {
+const getMoodByDay = async (email, date) => {
   const res = await executeQuery(
-    `SELECT trunc(AVG(slp_dur), 1) as slp_dur, trunc(AVG(slp_qlty), 1) as slp_qlty
-    FROM morning_reports
-    WHERE date > now() - interval '${weeks} week' AND email = '${email}'`
+    `SELECT ROUND(AVG((SELECT AVG(c) FROM (VALUES(m.mood), (e.mood)) T (c))), 1) mood
+    FROM
+      (SELECT * FROM evening_reports WHERE email = '${email}'
+      AND date = '${date}') e
+    FULL OUTER JOIN
+      (SELECT * FROM morning_reports WHERE email = '${email}'
+      AND date = '${date}') m
+    ON e.date = m.date;`
   );
   if (res && res.rowCount > 0) {
     return res.rowsOfObjects()[0];
   } else return {};
 };
 
-const avgEveningByWeek = async (email, weeks) => {
+const avgResultsByWeek = async (email, weeks) => {
   const res = await executeQuery(
-    `SELECT trunc(AVG(time_sport), 1) as time_sport,
-    trunc(AVG(time_study), 1) as time_study,
-    trunc(AVG(eating), 1) as eating
-    FROM evening_reports
-    WHERE date > now() - interval '${weeks} week' AND email = '${email}'`
+    `SELECT ROUND(AVG(slp_dur), 1) slp_dur, ROUND(AVG(slp_qlty), 1) slp_qlty,
+    ROUND(AVG(time_sport), 1) time_sport, ROUND(AVG(time_study), 1) time_study,
+    ROUND(AVG(eating), 1) eating,
+    ROUND(AVG((SELECT AVG(c) FROM (VALUES(m.mood), (e.mood)) T (c))), 1) mood
+    FROM
+      (SELECT * FROM evening_reports WHERE email = '${email}'
+      AND date > now() - interval '${weeks} week') e
+    FULL OUTER JOIN
+      (SELECT * FROM morning_reports WHERE email = '${email}'
+      AND date > now() - interval '${weeks} week') m
+    ON e.date = m.date;`
   );
   if (res && res.rowCount > 0) {
     return res.rowsOfObjects()[0];
@@ -62,19 +73,17 @@ const avgEveningByWeek = async (email, weeks) => {
 };
 
 const getAvgWeekResults = async email => {
-  return Object.assign(
-    {},
-    await avgMorningByWeek(email, 1),
-    await avgEveningByWeek(email, 1)
-  );
+  return await avgResultsByWeek(email, 1);
 };
 
 const getAvgMonthResults = async email => {
-  return Object.assign(
-    {},
-    await avgMorningByWeek(email, 4),
-    await avgEveningByWeek(email, 4)
-  );
+  return await avgResultsByWeek(email, 4);
 };
 
-export {addMorning, addEvening, getAvgWeekResults, getAvgMonthResults};
+export {
+  addMorning,
+  addEvening,
+  getAvgWeekResults,
+  getAvgMonthResults,
+  getMoodByDay
+};

@@ -1,7 +1,23 @@
 import * as monitorService from "../../services/monitorService.js";
 
-const getLanding = async ({render}) => {
+const getIndex = async ({render}) => {
+  let date = new Date();
+  date.setDate(date.getDate() - 1);
+  console.log(date.toLocaleDateString());
   render("index.ejs", {
+    today: await monitorService.getMoodByDay(
+      "ropsutius@gmail.com",
+      new Date().toLocaleDateString()
+    ),
+    yesterday: await monitorService.getMoodByDay(
+      "ropsutius@gmail.com",
+      date.toLocaleDateString()
+    )
+  });
+};
+
+const getSummary = async ({render}) => {
+  render("summary.ejs", {
     week: await monitorService.getAvgWeekResults("ropsutius@gmail.com"),
     month: await monitorService.getAvgMonthResults("ropsutius@gmail.com")
   });
@@ -25,7 +41,7 @@ const postMorningReport = async ({request, response}) => {
     params.get("slp_dur"),
     params.get("slp_qlty"),
     params.get("mood"),
-    "roope@gmail.com"
+    "ropsutius@gmail.com"
   );
   response.body = {status: 200};
 };
@@ -50,4 +66,10 @@ const postEveningReport = async ({request, response}) => {
   response.body = {status: 200};
 };
 
-export {getLanding, getReporting, postMorningReport, postEveningReport};
+export {
+  getIndex,
+  getReporting,
+  getSummary,
+  postMorningReport,
+  postEveningReport
+};

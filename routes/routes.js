@@ -4,9 +4,9 @@ import * as monitorController from "./controllers/monitorController.js";
 
 const router = new Router();
 
-router.get("/", monitorController.getLanding);
+router.get("/", monitorController.getIndex);
 router.get("/behavior/reporting", monitorController.getReporting);
-router.get("/behavior/summary", monitorController.getLanding);
+router.get("/behavior/summary", monitorController.getSummary);
 router.post("/behavior/reporting/morning", monitorController.postMorningReport);
 router.post("/behavior/reporting/evening", monitorController.postEveningReport);
 
