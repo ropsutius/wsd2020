@@ -1,5 +1,5 @@
 import * as monitorService from "../../services/monitorService.js";
-import * as helperService from "../../services/helperService.js";
+import * as utils from "../../utils/utils.js";
 
 const getIndex = async ({render}) => {
   let date = new Date();
@@ -24,7 +24,7 @@ const getSummary = async ({render, request}) => {
   else month = new Date().getMonth() + 1;
 
   if (week) week = Number(week.split("-")[1].replace("W", ""));
-  else week = helperService.getNumberOfWeek();
+  else week = utils.getNumberOfWeek();
 
   render("summary.ejs", {
     week: await monitorService.avgResults("ropsutius@gmail.com", "WEEK", week),

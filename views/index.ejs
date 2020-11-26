@@ -1,3 +1,5 @@
+<%- include('./partials/header.ejs') %>
+
 <h1>Self monitoring service</h1>
 <p>
   This service tracks your mental health by simple
@@ -23,3 +25,5 @@
 <% if (!today.mood && !yesterday.mood) { %>
   <h4>There is no data reported for today or for yesterday</h4>
 <% } %>
+
+<%- include('./partials/footer.ejs') %>
