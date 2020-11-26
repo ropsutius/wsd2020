@@ -19,3 +19,7 @@
     <h3>Things are looking gloomy today.</h3>
   <% } %>
 <% } %>
+
+<% if (!today.mood && !yesterday.mood) { %>
+  <h4>There is no data reported for today or for yesterday</h4>
+<% } %>

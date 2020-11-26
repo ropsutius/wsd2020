@@ -1,25 +1,38 @@
 import * as monitorService from "../../services/monitorService.js";
+import * as helperService from "../../services/helperService.js";
 
 const getIndex = async ({render}) => {
   let date = new Date();
   date.setDate(date.getDate() - 1);
-  console.log(date.toLocaleDateString());
   render("index.ejs", {
-    today: await monitorService.getMoodByDay(
+    today: await monitorService.avgMoodByDay(
       "ropsutius@gmail.com",
       new Date().toLocaleDateString()
     ),
-    yesterday: await monitorService.getMoodByDay(
+    yesterday: await monitorService.avgMoodByDay(
       "ropsutius@gmail.com",
       date.toLocaleDateString()
     )
   });
 };
 
-const getSummary = async ({render}) => {
+const getSummary = async ({render, request}) => {
+  let month = request.url.searchParams.get("month");
+  let week = request.url.searchParams.get("week");
+
+  if (month) month = Number(month.split("-")[1]);
+  else month = new Date().getMonth() + 1;
+
+  if (week) week = Number(week.split("-")[1].replace("W", ""));
+  else week = helperService.getNumberOfWeek();
+
   render("summary.ejs", {
-    week: await monitorService.getAvgWeekResults("ropsutius@gmail.com"),
-    month: await monitorService.getAvgMonthResults("ropsutius@gmail.com")
+    week: await monitorService.avgResults("ropsutius@gmail.com", "WEEK", week),
+    month: await monitorService.avgResults(
+      "ropsutius@gmail.com",
+      "MONTH",
+      month
+    )
   });
 };
 

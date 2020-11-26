@@ -1,17 +1,67 @@
 <h1>Monitoring results</h1>
 
 <h2>Average results for last week:</h2>
-<p>Sleep duration: <%= week.slp_dur %></p>
-<p>Quality of sleep: <%= week.slp_qlty %></p>
-<p>Time spent on sports: <%= week.time_sport %></p>
-<p>Time spent studying: <%= week.time_sport %></p>
-<p>Regularity and quality of eating: <%= week.eating %></p>
-<p>General mood: <%= week.mood %></p>
+
+<form action="/behavior/summary">
+  <label>Check results for previous weeks:</label>
+  <div>
+    <input type="week" name="week">
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+<% if (week.slp_dur) { %>
+  <p>Sleep duration: <%= week.slp_dur %></p>
+<% } %>
+<% if (week.slp_qlty) { %>
+  <p>Quality of sleep: <%= week.slp_qlty %></p>
+<% } %>
+<% if (week.time_sport) { %>
+  <p>Time spent on sports: <%= week.time_sport %></p>
+<% } %>
+<% if (week.time_study) { %>
+  <p>Time spent studying: <%= week.time_study %></p>
+<% } %>
+<% if (week.eating) { %>
+  <p>Regularity and quality of eating: <%= week.eating %></p>
+<% } %>
+<% if (week.mood) { %>
+  <p>General mood: <%= week.mood %></p>
+<% } %>
+<% if (!week.slp_dur && !week.slp_qlty && !week.time_sport
+&& !week.time_study && !week.eating && !week.mood) { %>
+  <h4>No data exists for the given week.</h4>
+<% } %>
 
 <h2>Average results for the last month:</h2>
-<p>Sleep duration: <%= month.slp_dur %></p>
-<p>Quality of sleep: <%= month.slp_qlty %></p>
-<p>Time spent on sports: <%= month.time_sport %></p>
-<p>Time spent studying: <%= month.time_study %></p>
-<p>Regularity and quality of eating: <%= month.eating %></p>
-<p>General mood: <%= month.mood %></p>
+
+<form action="/behavior/summary">
+  <label>Check results for previous months:</label>
+  <div>
+    <input type="month" name="month">
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+<% if (month.slp_dur) { %>
+  <p>Sleep duration: <%= month.slp_dur %></p>
+<% } %>
+<% if (month.slp_qlty) { %>
+  <p>Quality of sleep: <%= month.slp_qlty %></p>
+<% } %>
+<% if (month.time_sport) { %>
+  <p>Time spent on sports: <%= month.time_sport %></p>
+<% } %>
+<% if (month.time_study) { %>
+  <p>Time spent studying: <%= month.time_study %></p>
+<% } %>
+<% if (month.eating) { %>
+  <p>Regularity and quality of eating: <%= month.eating %></p>
+<% } %>
+<% if (month.mood) { %>
+  <p>General mood: <%= month.mood %></p>
+<% } %>
+<% if (!month.slp_dur && !month.slp_qlty && !month.time_sport
+&& !month.time_study && !month.eating && !month.mood) { %>
+  <h4>No data exists for the given month.</h4>
+<% } %>

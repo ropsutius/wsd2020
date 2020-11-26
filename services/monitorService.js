@@ -37,7 +37,7 @@ const addEvening = async (date, sprt_t, std_t, eating, mood, email) => {
   );
 };
 
-const getMoodByDay = async (email, date) => {
+const avgMoodByDay = async (email, date) => {
   const res = await executeQuery(
     `SELECT ROUND(AVG((SELECT AVG(c) FROM (VALUES(m.mood), (e.mood)) T (c))), 1) mood
     FROM
@@ -53,7 +53,7 @@ const getMoodByDay = async (email, date) => {
   } else return {};
 };
 
-const avgResultsByWeek = async (email, weeks) => {
+const avgResults = async (email, type, value) => {
   const res = await executeQuery(
     `SELECT ROUND(AVG(slp_dur), 1) slp_dur, ROUND(AVG(slp_qlty), 1) slp_qlty,
     ROUND(AVG(time_sport), 1) time_sport, ROUND(AVG(time_study), 1) time_study,
@@ -61,10 +61,10 @@ const avgResultsByWeek = async (email, weeks) => {
     ROUND(AVG((SELECT AVG(c) FROM (VALUES(m.mood), (e.mood)) T (c))), 1) mood
     FROM
       (SELECT * FROM evening_reports WHERE email = '${email}'
-      AND date > now() - interval '${weeks} week') e
+      AND EXTRACT(${type} FROM date) = ${value}) e
     FULL OUTER JOIN
       (SELECT * FROM morning_reports WHERE email = '${email}'
-      AND date > now() - interval '${weeks} week') m
+      AND EXTRACT(${type} FROM date) = ${value}) m
     ON e.date = m.date;`
   );
   if (res && res.rowCount > 0) {
@@ -72,18 +72,4 @@ const avgResultsByWeek = async (email, weeks) => {
   } else return {};
 };
 
-const getAvgWeekResults = async email => {
-  return await avgResultsByWeek(email, 1);
-};
-
-const getAvgMonthResults = async email => {
-  return await avgResultsByWeek(email, 4);
-};
-
-export {
-  addMorning,
-  addEvening,
-  getAvgWeekResults,
-  getAvgMonthResults,
-  getMoodByDay
-};
+export {addMorning, addEvening, avgResults, avgMoodByDay};
