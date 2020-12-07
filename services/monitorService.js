@@ -1,21 +1,30 @@
 import { executeQuery } from "../database/database.js";
 
-const addMorning = async (date, slp_dur, slp_qlty, mood, email) => {
+const reportExists = async (date, email, type) => {
   const res = await executeQuery(
-    `SELECT EXISTS(SELECT 1 FROM morning_reports
-    WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = $1)`,
+    `SELECT EXISTS(SELECT 1 FROM ${type} WHERE date = $1 AND email = $2)`,
+    date,
     email
   );
-  if (res.rowsOfObjects()[0].exists) {
-    await executeQuery(
-      `DELETE FROM morning_reports
-      WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = $1`,
-      email
-    );
-  }
+  return res.rowsOfObjects()[0].exists;
+};
+
+const deleteReport = async (date, email, type) => {
+  await executeQuery(
+    `DELETE FROM ${type} WHERE date = $1 AND email = $2`,
+    date,
+    email
+  );
+};
+
+const addMorning = async (date, slp_dur, slp_qlty, mood, email) => {
+  if (reportExists(date, email, "morning_reports"))
+    deleteReport(date, email, "morning_reports");
+
   await executeQuery(
     `INSERT INTO morning_reports (date, slp_dur, slp_qlty, mood, email)
-    VALUES ('${!date ? "CURRENT_DATE" : date}', $1, $2, $3, $4)`,
+    VALUES ($1, $2, $3, $4, $5)`,
+    date,
     slp_dur,
     slp_qlty,
     mood,
@@ -24,21 +33,13 @@ const addMorning = async (date, slp_dur, slp_qlty, mood, email) => {
 };
 
 const addEvening = async (date, sprt_t, std_t, eating, mood, email) => {
-  const res = await executeQuery(
-    `SELECT EXISTS(SELECT 1 FROM evening_reports
-    WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = $1)`,
-    email
-  );
-  if (res.rowsOfObjects()[0].exists) {
-    await executeQuery(
-      `DELETE FROM evening_reports
-      WHERE date = '${!date ? "CURRENT_DATE" : date}' AND email = $1`,
-      email
-    );
-  }
+  if (reportExists(date, email, "evening_reports"))
+    deleteReport(date, email, "evening_reports");
+
   await executeQuery(
     `INSERT INTO evening_reports (date, time_sport, time_study, eating, mood, email)
-    VALUES ('${!date ? "CURRENT_DATE" : date}', $1, $2, $3, $4, $5)`,
+    VALUES ($1, $2, $3, $4, $5, $6)`,
+    date,
     sprt_t,
     std_t,
     eating,

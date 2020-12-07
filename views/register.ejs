@@ -1,0 +1,23 @@
+<%- include('./partials/header.ejs') %>
+
+<h1>Register for the self monitoring service</h1>
+
+<form method="POST">
+  <div>
+    <label>Email: </label>
+    <input type="email" name="email" value="<%= email %>">
+    <%- include('./partials/errors.ejs', { errors: errors, attribute: 'email'}) %>
+  </div>
+
+  <div>
+    <label>Password: </label>
+    <input type="password" name="pwd">
+    <%- include('./partials/errors.ejs', { errors: errors, attribute: 'password'}) %>
+  </div>
+
+  <div>
+    <input type="submit" value="Register">
+  </div>
+</form>
+
+<%- include('./partials/footer.ejs') %>
