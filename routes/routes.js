@@ -16,5 +16,6 @@ router.get("/auth/register", authController.getRegister);
 router.post("/auth/register", authController.postRegister);
 router.get("/auth/login", authController.getLogin);
 router.post("/auth/login", authController.postLogin);
+router.get("/auth/logout", authController.logout);
 
 export { router };

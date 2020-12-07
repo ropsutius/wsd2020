@@ -6,24 +6,30 @@
   queries performed every morning and evening.
  </p>
 
-<% if (today.mood) { %>
-  <h2>Average mood for today: <%= today.mood %></h2>
-<% } %>
+<% if (noUser) { %>
+  <p>Please log in or register to start using the service.</p>
+<% } else { %>
+  <% if (today.mood) { %>
+    <h2>Average mood for today: <%= today.mood %></h2>
+  <% } %>
 
-<% if (yesterday.mood) { %>
-<h2>Average mood for yesterday: <%= yesterday.mood %></h2>
-<% } %>
+  <% if (yesterday.mood) { %>
+  <h2>Average mood for yesterday: <%= yesterday.mood %></h2>
+  <% } %>
 
-<% if (today.mood && yesterday.mood) { %>
-  <% if (today.mood > yesterday.mood) { %>
-    <h3>Things are looking bright today!</h3>
-  <% } else if (today.mood < yesterday.mood) { %>
-    <h3>Things are looking gloomy today.</h3>
+  <% if (today.mood && yesterday.mood) { %>
+    <% if (today.mood > yesterday.mood) { %>
+      <h3>Things are looking bright today!</h3>
+    <% } else if (today.mood < yesterday.mood) { %>
+      <h3>Things are looking gloomy today.</h3>
+    <% } %>
+  <% } %>
+
+  <% if (!today.mood && !yesterday.mood) { %>
+    <h4>There is no data reported for today or for yesterday</h4>
   <% } %>
 <% } %>
 
-<% if (!today.mood && !yesterday.mood) { %>
-  <h4>There is no data reported for today or for yesterday</h4>
-<% } %>
+
 
 <%- include('./partials/footer.ejs') %>

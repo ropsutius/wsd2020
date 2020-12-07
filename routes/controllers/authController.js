@@ -1,9 +1,9 @@
 import * as authService from "../../services/authService.js";
-import * as validation from "../../deps.js";
+import { validate, required, isEmail, minLength } from "../../deps.js";
 
 const validationRules = {
-  email: [validation.required, validation.isEmail],
-  password: [validation.required, validation.minLength(4)]
+  email: [required, isEmail],
+  password: [required, minLength(4)]
 };
 
 const getRegister = async ({ render }) => {
@@ -17,7 +17,7 @@ const postRegister = async ({ request, response, render }) => {
   const email = params.get("email");
   const pwd = params.get("pwd");
 
-  const [passes, errors] = await validation.validate(
+  const [passes, errors] = await validate(
     { email: email, password: pwd },
     validationRules
   );
@@ -41,7 +41,7 @@ const getLogin = async ({ render }) => {
   render("login.ejs", { errors: {} });
 };
 
-const postLogin = async ({ request, response, render }) => {
+const postLogin = async ({ request, response, render, session }) => {
   const body = request.body();
   const params = await body.value;
 
@@ -49,6 +49,10 @@ const postLogin = async ({ request, response, render }) => {
   const pwd = params.get("pwd");
 
   if (await authService.login(email, pwd)) {
+    session.set("authenticated", true);
+    session.set("user", {
+      email: email
+    });
     response.redirect("/");
   } else {
     render("login.ejs", {
@@ -57,4 +61,10 @@ const postLogin = async ({ request, response, render }) => {
   }
 };
 
-export { getRegister, postRegister, getLogin, postLogin };
+const logout = async ({ session, response }) => {
+  await session.set("authenticated", false);
+  await session.set("user", {});
+  response.redirect("/");
+};
+
+export { getRegister, postRegister, getLogin, postLogin, logout };

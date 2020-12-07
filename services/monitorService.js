@@ -87,4 +87,12 @@ const avgResults = async (email, type, value) => {
   } else return {};
 };
 
-export { addMorning, addEvening, avgResults, avgMoodByDay };
+const hasReported = async (email, type) => {
+  const res = await executeQuery(
+    `SELECT EXISTS(SELECT 1 FROM ${type} WHERE email = $1 AND date = CURRENT_DATE)`,
+    email
+  );
+  return res.rowsOfObjects()[0].exists;
+};
+
+export { addMorning, addEvening, avgResults, avgMoodByDay, hasReported };
