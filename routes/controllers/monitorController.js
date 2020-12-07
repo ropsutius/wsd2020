@@ -1,7 +1,7 @@
 import * as monitorService from "../../services/monitorService.js";
 import * as utils from "../../utils/utils.js";
 
-const getIndex = async ({render}) => {
+const getIndex = async ({ render }) => {
   let date = new Date();
   date.setDate(date.getDate() - 1);
   render("index.ejs", {
@@ -16,7 +16,7 @@ const getIndex = async ({render}) => {
   });
 };
 
-const getSummary = async ({render, request}) => {
+const getSummary = async ({ render, request }) => {
   let month = request.url.searchParams.get("month");
   let week = request.url.searchParams.get("week");
 
@@ -36,11 +36,11 @@ const getSummary = async ({render, request}) => {
   });
 };
 
-const getReporting = async ({render}) => {
+const getReporting = async ({ render }) => {
   render("reporting.ejs");
 };
 
-const postMorningReport = async ({request, response}) => {
+const postMorningReport = async ({ request, response }) => {
   const body = request.body();
   const params = await body.value;
 
@@ -56,10 +56,10 @@ const postMorningReport = async ({request, response}) => {
     params.get("mood"),
     "ropsutius@gmail.com"
   );
-  response.body = {status: 200};
+  response.body = { status: 200 };
 };
 
-const postEveningReport = async ({request, response}) => {
+const postEveningReport = async ({ request, response }) => {
   const body = request.body();
   const params = await body.value;
 
@@ -76,7 +76,7 @@ const postEveningReport = async ({request, response}) => {
     params.get("mood"),
     "ropsutius@gmail.com"
   );
-  response.body = {status: 200};
+  response.body = { status: 200 };
 };
 
 export {
