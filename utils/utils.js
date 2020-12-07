@@ -5,4 +5,11 @@ const getNumberOfWeek = () => {
   return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
 };
 
-export {getNumberOfWeek};
+const getTimestamp = () => {
+  const t = new Date();
+  const date = `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
+  const time = ` ${t.getHours()}:${t.getMinutes()}:${t.getSeconds()}`;
+  return date + time;
+};
+
+export { getNumberOfWeek, getTimestamp };

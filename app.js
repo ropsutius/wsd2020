@@ -1,7 +1,7 @@
-import {Application, Session} from "./deps.js";
-import {router} from "./routes/routes.js";
+import { Application, Session } from "./deps.js";
+import { router } from "./routes/routes.js";
 import * as middleware from "./middlewares/middlewares.js";
-import {viewEngine, engineFactory, adapterFactory} from "./deps.js";
+import { viewEngine, engineFactory, adapterFactory } from "./deps.js";
 
 const app = new Application();
 
@@ -13,7 +13,7 @@ app.use(
   })
 );
 
-const session = new Session({framework: "oak"});
+const session = new Session({ framework: "oak" });
 await session.init();
 
 app.use(session.use()(session));
@@ -30,6 +30,6 @@ if (Deno.args.length > 0) {
   port = Number(lastArgument);
 }
 
-app.listen({port: port});
+app.listen({ port: port });
 
 export default app;

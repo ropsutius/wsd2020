@@ -1,4 +1,5 @@
-import {send} from "../deps.js";
+import { send } from "../deps.js";
+import { getTimestamp } from "../utils/utils.js";
 
 const errorMiddleware = async (context, next) => {
   try {
@@ -8,11 +9,12 @@ const errorMiddleware = async (context, next) => {
   }
 };
 
-const requestTimingMiddleware = async ({request}, next) => {
+const requestTimingMiddleware = async ({ request }, next) => {
+  const time = getTimestamp();
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
-  console.log(`${request.method} ${request.url.pathname} - ${ms} ms`);
+  console.log(`${time} - ${request.method} ${request.url.pathname} - ${ms} ms`);
 };
 
 const serveStaticFilesMiddleware = async (context, next) => {
@@ -27,4 +29,4 @@ const serveStaticFilesMiddleware = async (context, next) => {
   }
 };
 
-export {errorMiddleware, requestTimingMiddleware, serveStaticFilesMiddleware};
+export { errorMiddleware, requestTimingMiddleware, serveStaticFilesMiddleware };
