@@ -12,4 +12,14 @@ const getTimestamp = () => {
   return date + time;
 };
 
-export { getNumberOfWeek, getTimestamp };
+const getWeekString = week => {
+  const t = new Date();
+  return `${t.getFullYear()}-W${week}`;
+};
+
+const getMonthString = month => {
+  const t = new Date();
+  return `${t.getFullYear()}-${month}`;
+};
+
+export { getNumberOfWeek, getTimestamp, getWeekString, getMonthString };

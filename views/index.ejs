@@ -1,6 +1,6 @@
 <%- include('./partials/header.ejs') %>
 
-<% if (!user) { %>
+<% if (!user || !user.email) { %>
   <div>
     <button><a href="/auth/login">Log in</a></button>
     <span> or </span>
@@ -14,9 +14,7 @@
   queries performed every morning and evening.
  </p>
 
-<% if (!user) { %>
-  <p>Please log in or register to start using the service.</p>
-<% } else { %>
+<% if (user && user.email) { %>
   <% if (today.mood) { %>
     <h2>Average mood for today: <%= today.mood %></h2>
   <% } %>
@@ -36,6 +34,8 @@
   <% if (!today.mood && !yesterday.mood) { %>
     <h4>There is no data reported for today or for yesterday</h4>
   <% } %>
+<% } else { %>
+  <p>Please log in or register to start using the service.</p>
 <% } %>
 
 

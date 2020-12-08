@@ -25,8 +25,8 @@ const validationEvening = {
   evening_mood: [required, isInt, numberBetween(1, 5)]
 };
 
-const getData = () => {
-  return {
+const getData = async user => {
+  const data = {
     sleep_duration: null,
     sleep_quality: null,
     time_sport: null,
@@ -36,8 +36,16 @@ const getData = () => {
     morning_mood: null,
     evening_date: new Date().toISOString().slice(0, 10),
     morning_date: new Date().toISOString().slice(0, 10),
+    isMorningReport: false,
+    isEveningReport: false,
+    user: user,
     errors: []
   };
+  if (await monitorService.hasReported(user.email, "morning_reports"))
+    data.isMorningReport = true;
+  if (await monitorService.hasReported(user.email, "evening_reports"))
+    data.isEveningReport = true;
+  return data;
 };
 
 const getIndex = async ({ render, session }) => {
@@ -75,20 +83,15 @@ const getSummary = async ({ render, request, session }) => {
   render("summary.ejs", {
     week: await monitorService.avgResults(user.email, "WEEK", week),
     month: await monitorService.avgResults(user.email, "MONTH", month),
+    weekValue: utils.getWeekString(week),
+    monthValue: utils.getMonthString(month),
     user: user
   });
 };
 
 const getReporting = async ({ render, session }) => {
   const user = await session.get("user");
-  const data = getData();
-
-  if (await monitorService.hasReported(user.email, "morning_reports"))
-    data.morning = true;
-  if (await monitorService.hasReported(user.email, "evening_reports"))
-    data.evening = true;
-
-  data.user = user;
+  const data = await getData(user);
 
   render("reporting.ejs", data);
 };
@@ -98,7 +101,7 @@ const postMorningReport = async ({ request, response, session, render }) => {
   const body = request.body();
   const params = await body.value;
 
-  const data = getData();
+  const data = await getData(user);
 
   data.sleep_duration = Number(params.get("slp_dur"));
   data.sleep_quality = Number(params.get("slp_qlty"));
@@ -109,7 +112,6 @@ const postMorningReport = async ({ request, response, session, render }) => {
 
   if (!passes) {
     data.errors = errors;
-    data.user = user;
     render("reporting.ejs", data);
   } else {
     await monitorService.addMorning(
@@ -128,7 +130,7 @@ const postEveningReport = async ({ request, response, session, render }) => {
   const body = request.body();
   const params = await body.value;
 
-  const data = getData();
+  const data = await getData(user);
 
   data.time_sport = Number(params.get("time_sport"));
   data.time_study = Number(params.get("time_study"));
@@ -136,12 +138,10 @@ const postEveningReport = async ({ request, response, session, render }) => {
   data.evening_mood = Number(params.get("evening_mood"));
   data.evening_date = params.get("evening_date");
 
-  console.log(data.evening_mood);
   const [passes, errors] = await validate(data, validationEvening);
 
   if (!passes) {
     data.errors = errors;
-    data.user = user;
     render("reporting.ejs", data);
   } else {
     await monitorService.addEvening(

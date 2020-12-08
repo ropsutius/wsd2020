@@ -30,7 +30,7 @@ const chooseEvening = () => {
 };
 </script>
 
-<div id="morning_reporting" style="display: none">
+<div id="morning_reporting" style="display: <%= isMorningReport ? 'none' : 'block' %>">
   <h1>Report morning behavior</h1>
   <form action="/behavior/reporting/morning" method="POST">
     <div>
@@ -41,7 +41,7 @@ const chooseEvening = () => {
 
     <div>
       <label>Time slept: </label>
-      <input type="number" name="slp_dur" value="<%= sleep_duration %>">
+      <input type="number" step="0.1" name="slp_dur" value="<%= sleep_duration %>">
       <%- include('./partials/errors.ejs', { errors: errors, attribute: 'sleep_duration'}) %>
     </div>
 
@@ -81,7 +81,7 @@ const chooseEvening = () => {
   </form>
 </div>
 
-<div id="evening_reporting" style="display: none">
+<div id="evening_reporting" style="display: <%= isMorningReport ? isEveningReport ? 'none' : 'block' : 'none' %>">
   <h1>Report evening behavior</h1>
   <form action="/behavior/reporting/evening" method="POST">
     <div>
@@ -92,13 +92,13 @@ const chooseEvening = () => {
 
     <div>
       <label>Time spent on sports and exercise: </label>
-      <input type="number" name="time_sport" value="<%= time_sport %>">
+      <input type="number" step="0.1" name="time_sport" value="<%= time_sport %>">
       <%- include('./partials/errors.ejs', { errors: errors, attribute: 'time_sport'}) %>
     </div>
 
     <div>
       <label>Time spent studying: </label>
-      <input type="number" name="time_study" value="<%= time_study %>">
+      <input type="number" step="0.1" name="time_study" value="<%= time_study %>">
       <%- include('./partials/errors.ejs', { errors: errors, attribute: 'time_study'}) %>
     </div>
 
@@ -138,8 +138,18 @@ const chooseEvening = () => {
   </form>
 </div>
 
-<button id="choose_morning" onclick="chooseMorning()">Choose Morning</button>
+<div>
+  <button id="choose_morning" onclick="chooseMorning()" style="display: <%= isMorningReport ? 'block' : 'none' %>">Resubmit morning behavior</button>
+  <% if (isMorningReport) { %>
+    <p>Behavior for the morning has already been reported. You may change the results by resubmitting the report.</p>
+  <% } %>
+</div>
 
-<button id="choose_evening" onclick="chooseEvening()">Choose Evening</button>
+<div>
+  <button id="choose_evening" onclick="chooseEvening()" style="display: <%= isMorningReport ? isEveningReport ? 'block' : 'none' : 'block' %>">Resubmit evening behavior</button>
+  <% if (isEveningReport) { %>
+    <p>Behavior for the evening has already been reported. You may change the results by resubmitting the report.</p>
+  <% } %>
+</div>
 
 <%- include('./partials/footer.ejs') %>
