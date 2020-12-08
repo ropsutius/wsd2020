@@ -2,14 +2,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Self monitoring service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   </head>
   <body>
-    <% if (user && user.email) { %>
-      <div>
-        <button><a href="/auth/logout">Log out</a></button>
-        <button><a href="/behavior/reporting">Report behavior</a></button>
-        <button><a href="/behavior/summary">See results</a></button>
-        <p>Logged in as <%= user.email %></p>
-      </div>
-    <% } %>

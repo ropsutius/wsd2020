@@ -1,4 +1,5 @@
 <%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
 
 <script>
 const chooseMorning = () => {
@@ -30,126 +31,209 @@ const chooseEvening = () => {
 };
 </script>
 
-<div id="morning_reporting" style="display: <%= isMorningReport ? 'none' : 'block' %>">
-  <h1>Report morning behavior</h1>
-  <form action="/behavior/reporting/morning" method="POST">
-    <div>
-      <label>Date (Default is today): </label>
-      <input type="date" name="morning_date" value="<%= morning_date %>">
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'morning_date'}) %>
-    </div>
+<section class="section">
+  <div class="block has-text-centered">
+    <h1 class="title">Report behavior</h1>
+  </div>
 
-    <div>
-      <label>Time slept: </label>
-      <input type="number" step="0.1" name="slp_dur" value="<%= sleep_duration %>">
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'sleep_duration'}) %>
+  <div class="container has-text-centered" id="morning_reporting" style="display: <%= isMorningReport ? 'none' : 'block' %>">
+    <div class="block has-text-centered">
+      <h1 class="title is-4">Report morning behavior</h1>
     </div>
+    <form action="/behavior/reporting/morning" method="POST">
+      <div class="field">
+        <label class=label>Date (Default is today): </label>
+        <div class="control">
+          <input class="input" type="date" name="morning_date" value="<%= morning_date %>">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'morning_date'}) %>
+      </div>
 
-    <div>
-      <label>Quality of sleep on a scale of 1-5: </label><br>
-      <input type="radio" id="slp1" value="1" name="slp_qlty" <%= sleep_quality == 1 ? 'checked' : '' %>>
-      <label for="slp1">1</label>
-      <input type="radio" id="slp2" value="2" name="slp_qlty" <%= sleep_quality == 2 ? 'checked' : '' %>>
-      <label for="slp2">2</label>
-      <input type="radio" id="slp3" value="3" name="slp_qlty" <%= sleep_quality == 3 ? 'checked' : '' %>>
-      <label for="slp3">3</label>
-      <input type="radio" id="slp4" value="4" name="slp_qlty" <%= sleep_quality == 4 ? 'checked' : '' %>>
-      <label for="slp4">4</label>
-      <input type="radio" id="slp5" value="5" name="slp_qlty" <%= sleep_quality == 5 ? 'checked' : '' %>>
-      <label for="slp5">5</label>
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'sleep_quality'}) %>
-    </div>
+      <div class="field">
+        <label class="label">Time slept: </label>
+        <div class="control">
+          <input class="input" type="number" step="0.1" name="slp_dur" value="<%= sleep_duration %>">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'sleep_duration'}) %>
+      </div>
 
-    <div>
-      <label>General mood on a scale of 1-5: </label><br>
-      <input type="radio" id="morning_mood1" value="1" name="morning_mood" <%= morning_mood == 1 ? 'checked' : '' %>>
-      <label for="morning_mood1">1</label>
-      <input type="radio" id="morning_mood2" value="2" name="morning_mood" <%= morning_mood == 2 ? 'checked' : '' %>>
-      <label for="morning_mood2">2</label>
-      <input type="radio" id="morning_mood3" value="3" name="morning_mood" <%= morning_mood == 3 ? 'checked' : '' %>>
-      <label for="morning_mood3">3</label>
-      <input type="radio" id="morning_mood4" value="4" name="morning_mood" <%= morning_mood == 4 ? 'checked' : '' %>>
-      <label for="morning_mood4">4</label>
-      <input type="radio" id="morning_mood5" value="5" name="morning_mood" <%= morning_mood == 5 ? 'checked' : '' %>>
-      <label for="morning_mood5">5</label>
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'morning_mood'}) %>
-    </div>
+      <div class="field">
+        <div class="control">
+          <label class="label">Quality of sleep on a scale of 1-5: </label>
+          <label class="radio">
+            <input type="radio" value="1" name="slp_qlty" <%= sleep_quality == 1 ? 'checked' : '' %>>
+            1
+          </label>
 
-    <div>
-      <input type="submit" value="Submit morning behavior">
+          <label class="radio" for="slp2">
+            <input type="radio" value="2" name="slp_qlty" <%= sleep_quality == 2 ? 'checked' : '' %>>
+            2
+          </label>
+
+          <label class="radio" for="slp3">
+            <input type="radio" value="3" name="slp_qlty" <%= sleep_quality == 3 ? 'checked' : '' %>>
+            3
+          </label>
+
+          <label class="radio" for="slp4">
+            <input type="radio" value="4" name="slp_qlty" <%= sleep_quality == 4 ? 'checked' : '' %>>
+            4
+          </label>
+
+          <label class="radio" for="slp5">
+            <input type="radio" value="5" name="slp_qlty" <%= sleep_quality == 5 ? 'checked' : '' %>>
+            5
+          </label>
+          <%- include('./partials/errors.ejs', { errors: errors, attribute: 'sleep_quality'}) %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <label class="label">General mood on a scale of 1-5: </label>
+          <label class="radio">
+            <input type="radio" value="1" name="morning_mood" <%= morning_mood == 1 ? 'checked' : '' %>>
+            1
+          </label>
+          <label class="radio">
+            <input type="radio" value="2" name="morning_mood" <%= morning_mood == 2 ? 'checked' : '' %>>
+            2
+          </label>
+          <label class="radio" for="morning_mood3">
+            <input type="radio" value="3" name="morning_mood" <%= morning_mood == 3 ? 'checked' : '' %>>
+            3
+          </label>
+          <label class="radio" for="morning_mood4">
+            <input type="radio" value="4" name="morning_mood" <%= morning_mood == 4 ? 'checked' : '' %>>
+            4
+          </label>
+          <label class="radio" for="morning_mood5">
+            <input type="radio" value="5" name="morning_mood" <%= morning_mood == 5 ? 'checked' : '' %>>
+            5
+          </label>
+          <%- include('./partials/errors.ejs', { errors: errors, attribute: 'morning_mood'}) %>
+        </div>
+      </div>
+      <div class="field">
+        <input class="button is-primary" type="submit" value="Submit morning behavior">
+      </div>
+    </form>
+  </div>
+
+  <div class="container has-text-centered" id="evening_reporting" style="display: <%= isMorningReport ? isEveningReport ? 'none' : 'block' : 'none' %>">
+    <div class="block has-text-centered">
+      <h1 class="title is-4">Report evening behavior</h1>
     </div>
-  </form>
+    <form action="/behavior/reporting/evening" method="POST">
+      <div class="field">
+        <label class="label">Date (Default is today): </label>
+        <div class="control">
+          <input class="input" type="date" name="evening_date" value="<%= evening_date %>">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'evening_date'}) %>
+      </div>
+
+      <div class="field">
+        <label class="label">Time spent on sports and exercise: </label>
+        <div class="control">
+          <input class="input" type="number" step="0.1" name="time_sport" value="<%= time_sport %>">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'time_sport'}) %>
+      </div>
+
+      <div class="field">
+        <label class="label">Time spent studying: </label>
+        <div class="control">
+          <input class="input" type="number" step="0.1" name="time_study" value="<%= time_study %>">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'time_study'}) %>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <label class="label">Regularity and quality of eating on a scale of 1-5: </label>
+
+          <label class="radio">
+            <input type="radio" value="1" name="eating" <%= eating == 1 ? 'checked' : '' %>>
+            1
+          </label>
+          <label class="radio">
+            <input type="radio" value="2" name="eating" <%= eating == 2 ? 'checked' : '' %>>
+            2
+          </label>
+          <label class="radio">
+            <input type="radio" value="3" name="eating" <%= eating == 3 ? 'checked' : '' %>>
+            3
+          </label>
+          <label class="radio">
+            <input type="radio" value="4" name="eating" <%= eating == 4 ? 'checked' : '' %>>
+            4
+          </label>
+          <label class="radio">
+            <input type="radio" value="5" name="eating" <%= eating == 5 ? 'checked' : '' %>>
+            5
+          </label>
+          <%- include('./partials/errors.ejs', { errors: errors, attribute: 'eating'}) %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <label class="label">General mood on a scale of 1-5: </label>
+          <label class="radio">
+            <input type="radio" value="1" name="evening_mood" <%= evening_mood == 1 ? 'checked' : '' %>>
+            1
+          </label>
+          <label class="radio">
+            <input type="radio" value="2" name="evening_mood" <%= evening_mood == 2 ? 'checked' : '' %>>
+            2
+          </label>
+          <label class="radio">
+            <input type="radio" value="3" name="evening_mood" <%= evening_mood == 3 ? 'checked' : '' %>>
+            3
+          </label>
+          <label class="radio">
+            <input type="radio" value="4" name="evening_mood" <%= evening_mood == 4 ? 'checked' : '' %>>
+            4
+          </label>
+          <label class="radio">
+            <input type="radio" value="5" name="evening_mood" <%= evening_mood == 5 ? 'checked' : '' %>>
+            5
+          </label>
+          <%- include('./partials/errors.ejs', { errors: errors, attribute: 'evening_mood'}) %>
+        </div>
+      </div>
+      <div class="field">
+        <input class="button is-primary" type="submit" value="Submit evening behavior">
+      </div>
+    </form>
+  </div>
+</section>
+
+
+
+<div class="block has-text-centered">
+  <button class="button is-primary" id="choose_morning" onclick="chooseMorning()" style="display: <%= isMorningReport ? 'block' : 'none' %>">
+    Resubmit morning Behavior
+  </button>
 </div>
 
-<div id="evening_reporting" style="display: <%= isMorningReport ? isEveningReport ? 'none' : 'block' : 'none' %>">
-  <h1>Report evening behavior</h1>
-  <form action="/behavior/reporting/evening" method="POST">
-    <div>
-      <label>Date (Default is today): </label>
-      <input type="date" name="evening_date" value="<%= evening_date %>">
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'evening_date'}) %>
-    </div>
-
-    <div>
-      <label>Time spent on sports and exercise: </label>
-      <input type="number" step="0.1" name="time_sport" value="<%= time_sport %>">
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'time_sport'}) %>
-    </div>
-
-    <div>
-      <label>Time spent studying: </label>
-      <input type="number" step="0.1" name="time_study" value="<%= time_study %>">
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'time_study'}) %>
-    </div>
-
-    <div>
-      <label>Regularity and quality of eating on a scale of 1-5: </label><br>
-      <input type="radio" id="eat1" value="1" name="eating" <%= eating == 1 ? 'checked' : '' %>>
-      <label for="eat1">1</label>
-      <input type="radio" id="eat2" value="2" name="eating" <%= eating == 2 ? 'checked' : '' %>>
-      <label for="2">2</label>
-      <input type="radio" id="eat3" value="3" name="eating" <%= eating == 3 ? 'checked' : '' %>>
-      <label for="eat3">3</label>
-      <input type="radio" id="eat4" value="4" name="eating" <%= eating == 4 ? 'checked' : '' %>>
-      <label for="eat4">4</label>
-      <input type="radio" id="eat5" value="5" name="eating" <%= eating == 5 ? 'checked' : '' %>>
-      <label for="eat5">5</label>
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'eating'}) %>
-    </div>
-
-    <div>
-      <label>General mood on a scale of 1-5: </label><br>
-      <input type="radio" id="evening_mood1" value="1" name="evening_mood" <%= evening_mood == 1 ? 'checked' : '' %>>
-      <label for="evening_mood1">1</label>
-      <input type="radio" id="evening_mood2" value="2" name="evening_mood" <%= evening_mood == 2 ? 'checked' : '' %>>
-      <label for="evening_mood2">2</label>
-      <input type="radio" id="evening_mood3" value="3" name="evening_mood" <%= evening_mood == 3 ? 'checked' : '' %>>
-      <label for="evening_mood3">3</label>
-      <input type="radio" id="evening_mood4" value="4" name="evening_mood" <%= evening_mood == 4 ? 'checked' : '' %>>
-      <label for="evening_mood4">4</label>
-      <input type="radio" id="evening_mood5" value="5" name="evening_mood" <%= evening_mood == 5 ? 'checked' : '' %>>
-      <label for="evening_mood5">5</label>
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'evening_mood'}) %>
-    </div>
-
-    <div>
-      <input type="submit" value="Submit evening behavior">
-    </div>
-  </form>
+<div class="block has-text-centered">
+  <button class="button is-primary" id="choose_evening" onclick="chooseEvening()" style="display: <%= isMorningReport ? isEveningReport ? 'block' : 'none' : 'block' %>">
+    Resubmit evening behavior
+  </button>
 </div>
 
-<div>
-  <button id="choose_morning" onclick="chooseMorning()" style="display: <%= isMorningReport ? 'block' : 'none' %>">Resubmit morning behavior</button>
-  <% if (isMorningReport) { %>
-    <p>Behavior for the morning has already been reported. You may change the results by resubmitting the report.</p>
-  <% } %>
-</div>
+<% if (isMorningReport) { %>
+  <p class="title is-6">
+    Behavior for the morning has already been reported. You may change the results by resubmitting the report.
+  </p>
+<% } %>
 
-<div>
-  <button id="choose_evening" onclick="chooseEvening()" style="display: <%= isMorningReport ? isEveningReport ? 'block' : 'none' : 'block' %>">Resubmit evening behavior</button>
-  <% if (isEveningReport) { %>
-    <p>Behavior for the evening has already been reported. You may change the results by resubmitting the report.</p>
-  <% } %>
-</div>
+<% if (isEveningReport) { %>
+  <p class="title is-6">
+    Behavior for the evening has already been reported. You may change the results by resubmitting the report.
+  </p>
+<% } %>
 
 <%- include('./partials/footer.ejs') %>

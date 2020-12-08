@@ -1,0 +1,23 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <% if (user && user.email) { %>
+          <p>Logged in as <%= user.email %></p>
+        <% } %>
+      </div>
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if (user && user.email) { %>
+            <a class="button is-primary" href="/behavior/reporting">Report behavior</a>
+            <a class="button is-primary" href="/behavior/summary">See results</a>
+            <a class="button is-light" href="/auth/logout">Log out</a>
+          <% } else { %>
+            <a class="button is-primary" href="/auth/register"><strong>Register</strong></a>
+            <a class="button is-light" href="/auth/login">Log in</a>
+          <% }  %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

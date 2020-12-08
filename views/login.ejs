@@ -1,24 +1,39 @@
-<%- include('./partials/authHeader.ejs') %>
+<%- include('./partials/header.ejs') %>
 
-<h1>Login to the self monitoring service</h1>
-
-<form method="POST">
-  <div>
-    <label>Email: </label>
-    <input type="email" name="email">
+<section class="section">
+  <div class="container has-text-centered">
+    <h1 class="title">Login to the self monitoring service</h1>
   </div>
+</section>
 
-  <div>
-    <label>Password: </label>
-    <input type="password" name="pwd">
+<section class="section">
+  <div class="container is-max-desktop">
+    <form method="POST">
+      <div class="field">
+        <label class="label">Email </label>
+        <div class="control">
+          <input class="input" type="email" name="email">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" name="pwd">
+        </div>
+      </div>
+      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'fail'}) %>
+
+      <div class="field is-grouped is-grouped-centered">
+        <div class="control">
+          <input class="button is-primary" type="submit" value="Login">
+        </div>
+        <div class="control">
+          <a class="button is-light" href="/auth/register">Not yet registered?</a>
+        </div>
+      </div>
+    </form>
   </div>
-
-  <div>
-    <input type="submit" value="Login">
-  </div>
-  <%- include('./partials/errors.ejs', { errors: errors, attribute: 'fail'}) %>
-</form>
-
-<button><a href="/auth/register">Not yet registered?</a></button>
+</section>
 
 <%- include('./partials/footer.ejs') %>

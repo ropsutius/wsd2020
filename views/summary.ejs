@@ -1,71 +1,184 @@
 <%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
 
-<h1>Monitoring results</h1>
-
-<h2>Average weekly results:</h2>
-
-<form action="/behavior/summary">
-  <label>Check results for previous weeks:</label>
-  <div>
-    <input type="week" name="week" value="<%= weekValue %>">
-    <input type="submit" value="Show results">
+<div class="section">
+  <div class="block has-text-centered">
+    <h1 class="title">Monitoring results</h1>
   </div>
-</form>
 
-<% if (week.slp_dur) { %>
-  <p>Sleep duration: <%= week.slp_dur %></p>
-<% } %>
-<% if (week.slp_qlty) { %>
-  <p>Quality of sleep: <%= week.slp_qlty %> / 5</p>
-<% } %>
-<% if (week.time_sport) { %>
-  <p>Time spent on sports: <%= week.time_sport %></p>
-<% } %>
-<% if (week.time_study) { %>
-  <p>Time spent studying: <%= week.time_study %></p>
-<% } %>
-<% if (week.eating) { %>
-  <p>Regularity and quality of eating: <%= week.eating %> / 5</p>
-<% } %>
-<% if (week.mood) { %>
-  <p>General mood: <%= week.mood %> / 5</p>
-<% } %>
-<% if (!week.slp_dur && !week.slp_qlty && !week.time_sport
-&& !week.time_study && !week.eating && !week.mood) { %>
-  <h4>No data exists for the given week.</h4>
-<% } %>
+  <div class="block">
+    <div class="block has-text-centered">
+      <h3 class="title is-4">Average weekly results</h3>
+    </div>
 
-<h2>Average monthly results:</h2>
+    <div class="block">
+      <nav class="level">
+        <% if (week.slp_dur) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Sleep duration</p>
+              <p class="title"><%= week.slp_dur %>h</p>
+            </div>
+          </div>
+        <% } %>
 
-<form action="/behavior/summary">
-  <label>Check results for previous months:</label>
-  <div>
-    <input type="month" name="month" value="<%= monthValue %>">
-    <input type="submit" value="Show results">
+        <% if (week.slp_qlty) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Quality of sleep</p>
+              <p class="title"><%= week.slp_qlty %>/5</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (week.time_sport) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Time spent on sports</p>
+              <p class="title"><%= week.time_sport %>h</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (week.time_study) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Time spent studying</p>
+              <p class="title"><%= week.time_study %>h</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (week.eating) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Regularity and quality of eating</p>
+              <p class="title"><%= week.eating %>/5</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (week.mood) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">General mood</p>
+              <p class="title"><%= week.mood %>/5</p>
+            </div>
+          </div>
+        <% } %>
+      </nav>
+    </div>
+
+
+    <% if (!week.slp_dur && !week.slp_qlty && !week.time_sport
+    && !week.time_study && !week.eating && !week.mood) { %>
+      <div class="block has-text-centered">
+        <h1 class="title is-5">No data exists for the given week</h1>
+      </div>
+    <% } %>
+
+    <div class="container has-text-centered is-max-desktop">
+      <form action="/behavior/summary">
+        <div class="field">
+          <label class="label">Check results for previous weeks:</label>
+          <div class="control">
+            <input class="input" type="week" name="week" value="<%= weekValue %>">
+          </div>
+        </div>
+        <div class="control">
+          <input class="button is-primary" type="submit" value="Show results">
+        </div>
+      </form>
+    </div>
   </div>
-</form>
 
-<% if (month.slp_dur) { %>
-  <p>Sleep duration: <%= month.slp_dur %></p>
-<% } %>
-<% if (month.slp_qlty) { %>
-  <p>Quality of sleep: <%= month.slp_qlty %> / 5</p>
-<% } %>
-<% if (month.time_sport) { %>
-  <p>Time spent on sports: <%= month.time_sport %></p>
-<% } %>
-<% if (month.time_study) { %>
-  <p>Time spent studying: <%= month.time_study %></p>
-<% } %>
-<% if (month.eating) { %>
-  <p>Regularity and quality of eating: <%= month.eating %> / 5</p>
-<% } %>
-<% if (month.mood) { %>
-  <p>General mood: <%= month.mood %> / 5</p>
-<% } %>
-<% if (!month.slp_dur && !month.slp_qlty && !month.time_sport
-&& !month.time_study && !month.eating && !month.mood) { %>
-  <h4>No data exists for the given month.</h4>
-<% } %>
+  <div class="block">
+    <div class="block has-text-centered">
+      <h3 class="title is-4">Average monthly results</h3>
+    </div>
+
+    <div class="block">
+      <nav class="level">
+        <% if (month.slp_dur) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Sleep duration</p>
+              <p class="title"><%= month.slp_dur %>h</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (month.slp_qlty) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Quality of sleep</p>
+              <p class="title"><%= month.slp_qlty %>/5</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (month.time_sport) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Time spent on sports</p>
+              <p class="title"><%= month.time_sport %>h</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (month.time_study) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Time spent studying</p>
+              <p class="title"><%= month.time_study %>h</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (month.eating) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Regularity and quality of eating</p>
+              <p class="title"><%= month.eating %>/5</p>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (month.mood) { %>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">General mood</p>
+              <p class="title"><%= month.mood %>/5</p>
+            </div>
+          </div>
+        <% } %>
+      </nav>
+    </div>
+
+    <% if (!month.slp_dur && !month.slp_qlty && !month.time_sport
+    && !month.time_study && !month.eating && !month.mood) { %>
+      <div class="block has-text-centered">
+        <h1 class="title is-5">No data exists for the given month</h1>
+      </div>
+    <% } %>
+
+    <div class="container has-text-centered is-max-desktop">
+      <form action="/behavior/summary">
+        <div class="field">
+          <label class="label">Check results for previous months:</label>
+          <div class="control">
+            <input class="input" type="month" name="month" value="<%= monthValue %>">
+          </div>
+        </div>
+        <div class="control">
+          <input class="button is-primary" type="submit" value="Show results">
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
 
 <%- include('./partials/footer.ejs') %>

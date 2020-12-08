@@ -1,43 +1,56 @@
 <%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
 
-<% if (!user || !user.email) { %>
-  <div>
-    <button><a href="/auth/login">Log in</a></button>
-    <span> or </span>
-    <button><a href="/auth/register">Register</a></button>
+<section class="section">
+  <div class="container has-text-centered">
+    <h1 class="title">Self monitoring service</h1>
+    <h2 class="subtitle">
+      This service tracks your mental health by simple
+      queries performed every morning and evening.
+    </h2>
   </div>
-<% }  %>
-
-<h1>Self monitoring service</h1>
-<p>
-  This service tracks your mental health by simple
-  queries performed every morning and evening.
- </p>
+</section>
 
 <% if (user && user.email) { %>
-  <% if (today.mood) { %>
-    <h2>Average mood for today: <%= today.mood %></h2>
-  <% } %>
-
-  <% if (yesterday.mood) { %>
-  <h2>Average mood for yesterday: <%= yesterday.mood %></h2>
-  <% } %>
-
-  <% if (today.mood && yesterday.mood) { %>
-    <% if (today.mood > yesterday.mood) { %>
-      <h3>Things are looking bright today!</h3>
-    <% } else if (today.mood < yesterday.mood) { %>
-      <h3>Things are looking gloomy today.</h3>
+  <nav class="level">
+    <% if (today.mood) { %>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Average mood today</p>
+          <p class="title"><%= today.mood %></p>
+        </div>
+      </div>
     <% } %>
-  <% } %>
 
-  <% if (!today.mood && !yesterday.mood) { %>
-    <h4>There is no data reported for today or for yesterday</h4>
-  <% } %>
-<% } else { %>
-  <p>Please log in or register to start using the service.</p>
+    <% if (yesterday.mood) { %>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Average mood yesterday</p>
+          <p class="title"><%= yesterday.mood %></p>
+        </div>
+      </div>
+    <% } %>
+  </nav>
 <% } %>
 
+<section class="section">
+  <div class="content has-text-centered">
+      <% if (today.mood && yesterday.mood) { %>
+        <% if (today.mood > yesterday.mood) { %>
+          <h3>Things are looking bright today!</h3>
+        <% } else if (today.mood < yesterday.mood) { %>
+          <h3>Things are looking gloomy today.</h3>
+        <% } %>
+      <% } %>
 
+      <% if (user && user.email && !today.mood && !yesterday.mood) { %>
+        <h3>There is no data reported for today or for yesterday</h3>
+      <% } %>
+
+      <% if (!user || !user.email) { %>
+        <h3>Please <strong>log in</strong> or <strong>register</strong> to start using the service.</h3>
+      <% } %>
+  </div>
+</section>
 
 <%- include('./partials/footer.ejs') %>

@@ -1,25 +1,40 @@
-<%- include('./partials/authHeader.ejs') %>
+<%- include('./partials/header.ejs') %>
 
-<h1>Register for the self monitoring service</h1>
-
-<form method="POST">
-  <div>
-    <label>Email: </label>
-    <input type="email" name="email" value="<%= email %>">
-    <%- include('./partials/errors.ejs', { errors: errors, attribute: 'email'}) %>
+<section class="section">
+  <div class="container has-text-centered">
+    <h1 class="title">Register for the self monitoring service</h1>
   </div>
+</section>
 
-  <div>
-    <label>Password: </label>
-    <input type="password" name="pwd">
-    <%- include('./partials/errors.ejs', { errors: errors, attribute: 'password'}) %>
+<section class="section">
+  <div class="container is-max-desktop">
+    <form method="POST">
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" name="email" value="<%= email %>">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'email'}) %>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" name="pwd">
+        </div>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'password'}) %>
+      </div>
+
+      <div class="field is-grouped is-grouped-centered">
+        <div class="control">
+          <input class="button is-primary" type="submit" value="Register">
+        </div>
+        <div class="control">
+          <a class="button is-light" href="/auth/login">Already registered?</a>
+        </div>
+      </div>
+    </form>
   </div>
-
-  <div>
-    <input type="submit" value="Register">
-  </div>
-</form>
-
-<button><a href="/auth/login">Already registered?</a></button>
+</section>
 
 <%- include('./partials/footer.ejs') %>
