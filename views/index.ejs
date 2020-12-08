@@ -3,7 +3,7 @@
 
 <section class="section">
   <div class="container has-text-centered">
-    <h1 class="title">Self monitoring service</h1>
+    <h1 class="title is-2">Self monitoring service</h1>
     <h2 class="subtitle">
       This service tracks your mental health by simple
       queries performed every morning and evening.
@@ -35,6 +35,7 @@
 
 <section class="section">
   <div class="content has-text-centered">
+    <% if (user && user.email) { %>
       <% if (today.mood && yesterday.mood) { %>
         <% if (today.mood > yesterday.mood) { %>
           <h3>Things are looking bright today!</h3>
@@ -46,10 +47,9 @@
       <% if (user && user.email && !today.mood && !yesterday.mood) { %>
         <h3>There is no data reported for today or for yesterday</h3>
       <% } %>
-
-      <% if (!user || !user.email) { %>
-        <h3>Please <strong>log in</strong> or <strong>register</strong> to start using the service.</h3>
-      <% } %>
+    <% } else { %>
+      <h3>Please <strong>log in</strong> or <strong>register</strong> to start using the service.</h3>
+    <% } %>
   </div>
 </section>
 
