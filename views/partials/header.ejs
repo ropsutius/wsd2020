@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Self monitoring service</title>
-    <script src="../utils/populate.js"></script>
   </head>
   <body>
+    <% if (user) { %>
+      <div>
+        <button><a href="/auth/logout">Log out</a></button>
+        <button><a href="/behavior/reporting">Report behavior</a></button>
+        <button><a href="/behavior/summary">See results</a></button>
+        <p>Logged in as <%= user.email %></p>
+      </div>
+    <% } %>

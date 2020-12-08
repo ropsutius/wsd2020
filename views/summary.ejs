@@ -1,3 +1,5 @@
+<%- include('./partials/header.ejs') %>
+
 <h1>Monitoring results</h1>
 
 <h2>Average results for last week:</h2>
@@ -65,3 +67,5 @@
 && !month.time_study && !month.eating && !month.mood) { %>
   <h4>No data exists for the given month.</h4>
 <% } %>
+
+<%- include('./partials/footer.ejs') %>

@@ -44,22 +44,21 @@ const getIndex = async ({ render, session }) => {
   const user = await session.get("user");
   let date = new Date();
   date.setDate(date.getDate() - 1);
+  let today = null;
+  let yesterday = null;
 
-  if (!user) {
-    render("index.ejs", { noUser: true });
-  } else {
-    render("index.ejs", {
-      today: await monitorService.avgMoodByDay(
-        user.email,
-        new Date().toLocaleDateString()
-      ),
-      yesterday: await monitorService.avgMoodByDay(
-        user.email,
-        date.toLocaleDateString()
-      ),
-      noUser: false
-    });
+  if (user) {
+    today = await monitorService.avgMoodByDay(
+      user.email,
+      new Date().toLocaleDateString()
+    );
+    yesterday = await monitorService.avgMoodByDay(
+      user.email,
+      date.toLocaleDateString()
+    );
   }
+
+  render("index.ejs", { today: today, yesterday: yesterday, user: user });
 };
 
 const getSummary = async ({ render, request, session }) => {
@@ -75,17 +74,21 @@ const getSummary = async ({ render, request, session }) => {
 
   render("summary.ejs", {
     week: await monitorService.avgResults(user.email, "WEEK", week),
-    month: await monitorService.avgResults(user.email, "MONTH", month)
+    month: await monitorService.avgResults(user.email, "MONTH", month),
+    user: user
   });
 };
 
 const getReporting = async ({ render, session }) => {
   const user = await session.get("user");
   const data = getData();
+
   if (await monitorService.hasReported(user.email, "morning_reports"))
     data.morning = true;
   if (await monitorService.hasReported(user.email, "evening_reports"))
     data.evening = true;
+
+  data.user = user;
 
   render("reporting.ejs", data);
 };
@@ -106,6 +109,7 @@ const postMorningReport = async ({ request, response, session, render }) => {
 
   if (!passes) {
     data.errors = errors;
+    data.user = user;
     render("reporting.ejs", data);
   } else {
     await monitorService.addMorning(
@@ -137,6 +141,7 @@ const postEveningReport = async ({ request, response, session, render }) => {
 
   if (!passes) {
     data.errors = errors;
+    data.user = user;
     render("reporting.ejs", data);
   } else {
     await monitorService.addEvening(

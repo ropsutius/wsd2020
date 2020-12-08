@@ -7,29 +7,29 @@ Web service for reporting daily behaviour and viewing progress.
 You can create the Postgres database using the following commands
 
 CREATE TABLE users (
-  email VARCHAR PRIMARY KEY,
-  pwd VARCHAR NOT NULL
+email VARCHAR(255) PRIMARY KEY,
+pwd VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE morning_reports (
-  id SERIAL PRIMARY KEY,
-  date DATE NOT NULL,
-  slp_dur DECIMAL NOT NULL,
-  slp_qlty SMALLINT NOT NULL,
-  mood SMALLINT NOT NULL,
-  email VARCHAR NOT NULL,
-  FOREIGN KEY (email) REFERENCES users (email)
+id SERIAL PRIMARY KEY,
+date DATE NOT NULL,
+slp_dur DECIMAL(2) NOT NULL,
+slp_qlty SMALLINT NOT NULL,
+mood SMALLINT NOT NULL,
+email VARCHAR(255) NOT NULL,
+FOREIGN KEY (email) REFERENCES users (email)
 );
 
 CREATE TABLE evening_reports (
-  id SERIAL PRIMARY KEY,
-  date DATE NOT NULL,
-  time_sport DECIMAL NOT NULL,
-  time_study DECIMAL NOT NULL,
-  eating SMALLINT NOT NULL,
-  mood SMALLINT NOT NULL,
-  email VARCHAR NOT NULL,
-  FOREIGN KEY (email) REFERENCES users (email)
+id SERIAL PRIMARY KEY,
+date DATE NOT NULL,
+time_sport DECIMAL(2) NOT NULL,
+time_study DECIMAL(2) NOT NULL,
+eating SMALLINT NOT NULL,
+mood SMALLINT NOT NULL,
+email VARCHAR(255) NOT NULL,
+FOREIGN KEY (email) REFERENCES users (email)
 );
 
 ## Running
@@ -48,7 +48,6 @@ Nodemon can be used to Start the server, but instead of having to restart the se
 With nodemon the server is started by typing:
 
 `$ nodemon server.js`
-
 
 ### npm module dependencies
 
