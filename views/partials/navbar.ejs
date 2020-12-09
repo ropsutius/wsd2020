@@ -14,7 +14,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <% if (user && user.email) { %>
-          <p>Logged in as <%= user.email %></p>
+          <span class="tag is-medium is-warning">Logged in as&nbsp;<strong><%= user.email %></strong></span>
         <% } %>
       </div>
       <div class="navbar-item">
