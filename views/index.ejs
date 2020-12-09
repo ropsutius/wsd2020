@@ -13,20 +13,19 @@
 
 <% if (user && user.email) { %>
   <nav class="level">
-    <% if (today.mood) { %>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Average mood today</p>
-          <p class="title"><%= today.mood %></p>
-        </div>
-      </div>
-    <% } %>
-
     <% if (yesterday.mood) { %>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Average mood yesterday</p>
           <p class="title"><%= yesterday.mood %></p>
+        </div>
+      </div>
+    <% } %>
+    <% if (today.mood) { %>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Average mood today</p>
+          <p class="title"><%= today.mood %></p>
         </div>
       </div>
     <% } %>

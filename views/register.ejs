@@ -7,33 +7,37 @@
 </section>
 
 <section class="section">
-  <div class="container is-max-desktop">
-    <form method="POST">
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input class="input" type="email" name="email" value="<%= email %>">
+  <div class="columns">
+    <div class="column"></div>
+    <div class="column">
+      <form method="POST">
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" name="email" value="<%= email %>">
+          </div>
+          <%- include('./partials/errors.ejs', { errors: errors, attribute: 'email'}) %>
         </div>
-        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'email'}) %>
-      </div>
 
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input class="input" type="password" name="pwd">
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" name="pwd">
+          </div>
+          <%- include('./partials/errors.ejs', { errors: errors, attribute: 'password'}) %>
         </div>
-        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'password'}) %>
-      </div>
 
-      <div class="field is-grouped is-grouped-centered">
-        <div class="control">
-          <input class="button is-primary" type="submit" value="Register">
+        <div class="field is-grouped is-grouped-centered">
+          <div class="control">
+            <input class="button is-primary" type="submit" value="Register">
+          </div>
+          <div class="control">
+            <a class="button is-light" href="/auth/login">Already registered?</a>
+          </div>
         </div>
-        <div class="control">
-          <a class="button is-light" href="/auth/login">Already registered?</a>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
+    <div class="column"></div>
   </div>
 </section>
 

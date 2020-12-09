@@ -1,5 +1,16 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div class="navbar-menu">
+    <% if (locals.isReporting) { %>
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <div class="buttons">
+            <button class="button is-primary" onclick="chooseMorning()">Submit morning Behavior</button>
+            <button class="button is-primary" onclick="chooseEvening()">Submit evening behavior</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+
     <div class="navbar-end">
       <div class="navbar-item">
         <% if (user && user.email) { %>

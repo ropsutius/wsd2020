@@ -7,32 +7,36 @@
 </section>
 
 <section class="section">
-  <div class="container is-max-desktop">
-    <form method="POST">
-      <div class="field">
-        <label class="label">Email </label>
-        <div class="control">
-          <input class="input" type="email" name="email">
+  <div class="columns">
+    <div class="column"></div>
+    <div class="column">
+      <form method="POST">
+        <div class="field">
+          <label class="label">Email </label>
+          <div class="control">
+            <input class="input" type="email" name="email">
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input class="input" type="password" name="pwd">
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" name="pwd">
+          </div>
         </div>
-      </div>
-      <%- include('./partials/errors.ejs', { errors: errors, attribute: 'fail'}) %>
+        <%- include('./partials/errors.ejs', { errors: errors, attribute: 'fail'}) %>
 
-      <div class="field is-grouped is-grouped-centered">
-        <div class="control">
-          <input class="button is-primary" type="submit" value="Login">
+        <div class="field is-grouped is-grouped-centered">
+          <div class="control">
+            <input class="button is-primary" type="submit" value="Login">
+          </div>
+          <div class="control">
+            <a class="button is-light" href="/auth/register">Not yet registered?</a>
+          </div>
         </div>
-        <div class="control">
-          <a class="button is-light" href="/auth/register">Not yet registered?</a>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
+    <div class="column"></div>
   </div>
 </section>
 

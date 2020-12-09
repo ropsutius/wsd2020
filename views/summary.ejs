@@ -1,12 +1,12 @@
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/navbar.ejs') %>
 
-<div class="section">
+<section class="section">
   <div class="block has-text-centered">
     <h1 class="title">Monitoring results</h1>
   </div>
 
-  <div class="block">
+  <div class="box">
     <div class="block has-text-centered">
       <h3 class="title is-4">Average weekly results</h3>
     </div>
@@ -73,26 +73,30 @@
     <% if (!week.slp_dur && !week.slp_qlty && !week.time_sport
     && !week.time_study && !week.eating && !week.mood) { %>
       <div class="block has-text-centered">
-        <h1 class="title is-5">No data exists for the given week</h1>
+        <span class="tag is-medium is-warning">No data exists for the given week</span>
       </div>
     <% } %>
 
-    <div class="container has-text-centered is-max-desktop">
-      <form action="/behavior/summary">
-        <div class="field">
-          <label class="label">Check results for previous weeks:</label>
-          <div class="control">
-            <input class="input" type="week" name="week" value="<%= weekValue %>">
+    <div class="columns has-text-centered">
+      <div class="column"></div>
+      <div class="column">
+        <form action="/behavior/summary">
+          <div class="field">
+            <label class="label">Check results for previous weeks:</label>
+            <div class="control">
+              <input class="input" type="week" name="week" value="<%= weekValue %>">
+            </div>
           </div>
-        </div>
-        <div class="control">
-          <input class="button is-primary" type="submit" value="Show results">
-        </div>
-      </form>
+          <div class="control">
+            <input class="button is-primary" type="submit" value="Show results">
+          </div>
+        </form>
+      </div>
+      <div class="column"></div>
     </div>
   </div>
 
-  <div class="block">
+  <div class="box">
     <div class="block has-text-centered">
       <h3 class="title is-4">Average monthly results</h3>
     </div>
@@ -158,22 +162,27 @@
     <% if (!month.slp_dur && !month.slp_qlty && !month.time_sport
     && !month.time_study && !month.eating && !month.mood) { %>
       <div class="block has-text-centered">
-        <h1 class="title is-5">No data exists for the given month</h1>
+        <h1 class="tag is-medium is-warning">No data exists for the given month</h1>
       </div>
     <% } %>
 
-    <div class="container has-text-centered is-max-desktop">
-      <form action="/behavior/summary">
-        <div class="field">
-          <label class="label">Check results for previous months:</label>
-          <div class="control">
-            <input class="input" type="month" name="month" value="<%= monthValue %>">
+    <div class="columns has-text-centered">
+      <div class="column"></div>
+      <div class="column">
+        <form action="/behavior/summary">
+          <div class="field">
+            <label class="label">Check results for previous months:</label>
+            <div class="control">
+              <input class="input" type="month" name="month" value="<%= monthValue %>">
+            </div>
           </div>
-        </div>
-        <div class="control">
-          <input class="button is-primary" type="submit" value="Show results">
-        </div>
-      </form>
+          <div class="control">
+            <input class="button is-primary" type="submit" value="Show results">
+          </div>
+        </form>
+      </div>
+      <div class="column"></div>
+
     </div>
   </div>
 </section>
