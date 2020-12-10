@@ -20,7 +20,14 @@ FULL OUTER JOIN
   AND DATE_TRUNC('MONTH', date) = DATE_TRUNC('MONTH', '2020-11-25')) m
 ON e.date = m.date;
 
+SELECT *
+FROM (SELECT m.date m_date, slp_dur, slp_qlty, m.mood m_mood, m.email m_email, e.date e_date, time_sport, time_study, eating, e.mood e_mood, e.email e_email
+FROM morning_reports m
+FULL OUTER JOIN evening_reports e
+ON m.date = e.date) s
+WHERE s.m_email = $1 OR s.e_email = $1;
 
-select *
-from morning_reports
-where extract(week from date) = 47;
+CREATE UNIQUE INDEX reports_idx ON (SELECT m.date m_date, slp_dur, slp_qlty, m.mood m_mood, m.email m_email, e.date e_date, time_sport, time_study, eating, e.mood e_mood, e.email e_email
+FROM morning_reports m
+FULL OUTER JOIN evening_reports e
+ON m.date = e.date) (m_date, slp_dur, slp_qlty, m_mood, m_email, e_date, time_sport, time_study, eating, e_mood, e_email);

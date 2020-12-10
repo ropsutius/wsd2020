@@ -37,7 +37,8 @@ const authenticationMiddleware = async (
     await next();
   } else if (
     request.url.pathname === "/" ||
-    request.url.pathname.startsWith("/auth")
+    request.url.pathname.startsWith("/auth") ||
+    request.url.pathname.startsWith("/api")
   ) {
     await next();
   } else {

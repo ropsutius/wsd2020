@@ -18,4 +18,7 @@ router.get("/auth/login", authController.getLogin);
 router.post("/auth/login", authController.postLogin);
 router.get("/auth/logout", authController.logout);
 
+router.get("/api/summary", monitorApi.getSummary);
+router.get("/api/summary/:year/:month/:day", monitorApi.avgResults);
+
 export { router };
