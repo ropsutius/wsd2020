@@ -1,10 +1,11 @@
 # Web Software Development Project 2020
 
 Web service for reporting daily behaviour and viewing progress.
+The service can be found online at https://wsd-ropsutius.herokuapp.com/
 
 ## Database
 
-You can create the Postgres database using the following commands
+You can create the Postgres database locally using the following commands
 
 CREATE TABLE users (
 email VARCHAR(255) PRIMARY KEY,
@@ -34,24 +35,13 @@ FOREIGN KEY (email) REFERENCES users (email)
 
 ## Running
 
-Start the server by navigating to the correct directory and typing
+You can run the service locally by setting the credentials of the local database in the .env file.
+After that the application can be started from the root folder using
 
-`$ node server.js`
+deno run --unstable --allow-all app.js
 
-You can see the site in your browser at [127.0.0.1:3000](http://127.0.0.1:3000/)
+## Testing
 
-Additionally you can use npm (installed together with Node.js) to install nodemon:
+Tests can be run on the application from the root folder using
 
-`$ npm i -g nodemon`
-
-Nodemon can be used to Start the server, but instead of having to restart the server after every change, nodemon automatically restarts it.  
-With nodemon the server is started by typing:
-
-`$ nodemon server.js`
-
-### npm module dependencies
-
-Express
-ExpressJS
-PostGres
-Body Parser
+deno test --allow-all
