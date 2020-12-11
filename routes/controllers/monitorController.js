@@ -80,16 +80,27 @@ const getSummary = async ({ render, request, session }) => {
   const user = await session.get("user");
   let month = request.url.searchParams.get("month");
   let week = request.url.searchParams.get("week");
+  let year = new Date().getFullYear();
 
-  if (month) month = Number(month.split("-")[1]);
-  else month = new Date().getMonth() + 1;
+  if (month) {
+    let split = month.split("-");
+    year = Number(split[0]);
+    month = Number(split[1]);
+  } else {
+    month = new Date().getMonth() + 1;
+  }
 
-  if (week) week = Number(week.split("-")[1].replace("W", ""));
-  else week = utils.getNumberOfWeek();
+  if (week) {
+    let split = week.split("-");
+    year = Number(split[0]);
+    week = Number(split[1].replace("W", ""));
+  } else {
+    week = utils.getNumberOfWeek();
+  }
 
   render("summary.ejs", {
-    week: await monitorService.avgResults(user.email, "WEEK", week),
-    month: await monitorService.avgResults(user.email, "MONTH", month),
+    week: await monitorService.avgResults(user.email, "WEEK", week, year),
+    month: await monitorService.avgResults(user.email, "MONTH", month, year),
     weekValue: utils.getWeekString(week),
     monthValue: utils.getMonthString(month),
     user: user

@@ -66,7 +66,7 @@ const avgMoodByDay = async (email, date) => {
   } else return {};
 };
 
-const avgResults = async (email, type, value) => {
+const avgResults = async (email, type, value, year) => {
   const res = await executeQuery(
     `SELECT ROUND(AVG(slp_dur), 1) slp_dur, ROUND(AVG(slp_qlty), 1) slp_qlty,
     ROUND(AVG(time_sport), 1) time_sport, ROUND(AVG(time_study), 1) time_study,
@@ -74,13 +74,14 @@ const avgResults = async (email, type, value) => {
     ROUND(AVG((SELECT AVG(c) FROM (VALUES(m.mood), (e.mood)) T (c))), 1) mood
     FROM
       (SELECT * FROM evening_reports WHERE email = $1
-      AND EXTRACT(${type} FROM date) = $2) e
+      AND EXTRACT(${type} FROM date) = $2 AND EXTRACT(YEAR FROM date) = $3) e
     FULL OUTER JOIN
       (SELECT * FROM morning_reports WHERE email = $1
-      AND EXTRACT(${type} FROM date) = $2) m
+      AND EXTRACT(${type} FROM date) = $2 AND EXTRACT(YEAR FROM date) = $3) m
     ON e.date = m.date;`,
     email,
-    value
+    value,
+    year
   );
   if (res && res.rowCount > 0) {
     return res.rowsOfObjects()[0];
