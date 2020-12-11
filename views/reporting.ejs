@@ -28,7 +28,7 @@ const chooseEvening = () => {
     <h1 class="title">Report behavior</h1>
   </div>
 
-  <div class="container has-text-centered" id="morning_reporting" style="display: <%= isMorningReport ? 'none' : 'block' %>">
+  <div class="container has-text-centered" id="morning_reporting" style="display: <%= showMorning ? 'block' : 'none' %>">
     <div class="block has-text-centered">
       <h1 class="title is-4">Report morning behavior</h1>
     </div>
@@ -119,7 +119,7 @@ const chooseEvening = () => {
 
   </div>
 
-  <div class="container has-text-centered" id="evening_reporting" style="display: <%= isMorningReport ? isEveningReport ? 'none' : 'block' : 'none' %>">
+  <div class="container has-text-centered" id="evening_reporting" style="display: <%= showEvening ? 'block' : 'none' %>">
     <div class="block has-text-centered">
       <h1 class="title is-4">Report evening behavior</h1>
     </div>

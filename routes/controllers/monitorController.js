@@ -38,6 +38,8 @@ const getData = async user => {
     morning_date: new Date().toISOString().slice(0, 10),
     isMorningReport: false,
     isEveningReport: false,
+    showMorning: false,
+    showEvening: false,
     user: user,
     errors: []
   };
@@ -45,6 +47,11 @@ const getData = async user => {
     data.isMorningReport = true;
   if (await monitorService.hasReported(user.email, "evening_reports"))
     data.isEveningReport = true;
+  if (!data.isMorningReport) {
+    data.showMorning = true;
+  } else if (!data.isEveningReport) {
+    data.showEvening = true;
+  }
   return data;
 };
 
@@ -111,6 +118,8 @@ const postMorningReport = async ({ request, response, session, render }) => {
   const [passes, errors] = await validate(data, validationMorning);
 
   if (!passes) {
+    data.showEvening = false;
+    data.showMorning = true;
     data.errors = errors;
     render("reporting.ejs", data);
   } else {
@@ -141,6 +150,8 @@ const postEveningReport = async ({ request, response, session, render }) => {
   const [passes, errors] = await validate(data, validationEvening);
 
   if (!passes) {
+    data.showEvening = true;
+    data.showMorning = false;
     data.errors = errors;
     render("reporting.ejs", data);
   } else {

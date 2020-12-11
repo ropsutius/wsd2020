@@ -1,5 +1,12 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-menu">
+  <div class="navbar-brand">
+    <a id ="burger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" onclick="dropBurger()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navMenu" class="navbar-menu">
     <% if (locals.isReporting) { %>
       <div class="navbar-start">
         <div class="navbar-item">
@@ -32,3 +39,13 @@
     </div>
   </div>
 </nav>
+
+<script>
+  const dropBurger = () => {
+    const navMenu = document.querySelector("#navMenu");
+    const burger = document.querySelector("#burger");
+
+    burger.classList.toggle('is-active');
+    navMenu.classList.toggle('is-active');
+  }
+</script>

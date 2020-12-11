@@ -9,12 +9,18 @@ const errorMiddleware = async (context, next) => {
   }
 };
 
-const requestTimingMiddleware = async ({ request }, next) => {
+const requestTimingMiddleware = async ({ request, session }, next) => {
+  let user = await session.get("user");
+  if (user === undefined) {
+    user = { email: "anonymous" };
+  }
   const time = getTimestamp();
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
-  console.log(`${time} - ${request.method} ${request.url.pathname} - ${ms} ms`);
+  console.log(
+    `${time} ${user.email} - ${request.method} ${request.url.pathname} - ${ms} ms`
+  );
 };
 
 const serveStaticFilesMiddleware = async (context, next) => {

@@ -35,7 +35,7 @@ FOREIGN KEY (email) REFERENCES users (email)
 
 ## Running
 
-You can run the service locally by setting the credentials of the local database in the .env file.
+You can run the service locally by first setting the credentials of the local database in the .env file.
 After that the application can be started from the root folder using
 
 deno run --unstable --allow-all app.js
